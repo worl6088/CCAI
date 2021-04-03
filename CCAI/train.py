@@ -25,7 +25,6 @@ from torch.autograd import Variable
 import torch.optim as optim
 
 
-model_save_path = '/home/cclab/jaeking/CCAI/weights/custom_weight'
 metrics = [
     "grid_size",
     "loss",
@@ -43,7 +42,7 @@ metrics = [
     "conf_noobj",
 ]
         
-def train(args, custom, train_path, valid_path, class_names, model_cfg, domain_name):
+def train(args, custom, train_path, valid_path, class_names, model_cfg, domain_name,model_save_path):
     logger = Logger(args.logdir)  # 로거 생성하는 부분
     GPU_NUM = args.gpu_num
     device = torch.device(f'cuda:{GPU_NUM}' if torch.cuda.is_available() else 'cpu')
