@@ -162,7 +162,8 @@ parser setting for detect test is as below:
 --weights_path : put the trained model with your custom data ex: weights/custom_weight/Highway.pth  
 --class_path : name file path ex: data/custom/domain_list/Highway.name 
 
-#####Run detect.py example
+#####Run detect.py example  
+
     $ python detect.py --image_folder data/sample --model_def config/custom_cfg/yolov3-custom.cfg --weights_path weights/custom_weight/Highway.pth --class_path data/custom/domain_list/Highway.name
 then, you can get the result in "output" directory (it made when detect.py run)
 ![domain_list](readme/result.png) 
