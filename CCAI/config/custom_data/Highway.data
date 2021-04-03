@@ -1,0 +1,4 @@
+classes=2
+train=/home/cclab/jaeking/CCAI/data/custom/train/Highway/Highway_train.txt
+valid=/home/cclab/jaeking/CCAI/data/custom/validation/Highway/Highway_valid.txt
+names=/home/cclab/jaeking/CCAI/data/custom/domain_list/Highway.name

@@ -1,0 +1,11 @@
+numpy
+matplotlib
+tensorboard
+terminaltables
+pillow
+tqdm
+imgaug
+pandas
+awscli
+urllib3
+opencv-python
