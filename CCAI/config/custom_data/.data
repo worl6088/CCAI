@@ -1,0 +1,4 @@
+classes=0
+train=/home/cclab/jaeking/CCAI/data/custom/train/_train.txt
+valid=/home/cclab/jaeking/CCAI/data/custom/validation/_valid.txt
+names=/home/cclab/jaeking/CCAI/data/custom/domain_list/.name
