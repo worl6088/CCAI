@@ -8,7 +8,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath('CCAI'))
 DEFAULT_DATA_DIR = os.path.join(ROOT_DIR, 'data','custom')
 DATA_FILE_DIR = os.path.join(ROOT_DIR,'config','custom_data')
 cfg_path =  os.path.join(ROOT_DIR, 'config','custom_cfg')
-
+model_save_path = os.path.join(ROOT_DIR,'weights', 'custom_weight')
 
 if __name__ == '__main__':
     args = parser_arguments()
@@ -33,7 +33,7 @@ if __name__ == '__main__':
             else:
                 model_cfg = get_group_cfg(cfg_path,'yolo', data_config['classes']) # trained with yolov3 model in default
             print('model_cfg_file:'+str(model_cfg))
-            train(args, True, train_path, valid_path, class_names, model_cfg, domain_names[index])
+            train(args, True, train_path, valid_path, class_names, model_cfg, domain_names[index],model_save_path)
 
 
     elif args.command == 'all':
@@ -53,6 +53,6 @@ if __name__ == '__main__':
                 model_cfg = args.model_def
             else:
                 model_cfg = get_group_cfg(cfg_path, 'yolo', data_config['classes'])
-            train(args, True, train_path, valid_path, class_names, model_cfg, domain_names[index])
+            train(args, True, train_path, valid_path, class_names, model_cfg, domain_names[index],model_save_path)
 
 
