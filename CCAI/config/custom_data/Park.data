@@ -1,4 +1,0 @@
-classes=3
-train=/home/cclab/jaeking/CCAI/data/custom/train/Park/Park_train.txt
-valid=/home/cclab/jaeking/CCAI/data/custom/validation/Park/Park_valid.txt
-names=/home/cclab/jaeking/CCAI/data/custom/domain_list/Park.name
