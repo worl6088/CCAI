@@ -1,6 +1,6 @@
 import argparse
 
-def parser_arguments():
+def parse_arguments():
     parser = argparse.ArgumentParser(description='Open Image Dataset Downloader')
 
     parser.add_argument("command",

@@ -4,17 +4,18 @@ from data_modules.bounding_boxes import *
 from train import *
 from utils.utils import get_data_list
 import os
+import sys
 
-ROOT_DIR = os.path.dirname(os.path.abspath('CCAI'))
+ROOT_DIR = os.path.abspath(os.path.dirname(sys.argv[0]))
 DEFAULT_DATA_DIR = os.path.join(ROOT_DIR, 'data','custom')
 DATA_FILE_DIR = os.path.join(ROOT_DIR,'config','custom_data')
 cfg_path =  os.path.join(ROOT_DIR, 'config','custom_cfg')
 model_save_path = os.path.join(ROOT_DIR,'weights', 'custom_weight')
 
 if __name__ == '__main__':
-    args = parser_arguments()
+    args = parse_arguments()
     if args.command == 'downloader':
-        domain_groups = bounding_boxes_images(args,ROOT_DIR, DEFAULT_DATA_DIR)
+        domain_groups = bounding_boxes_images(args, ROOT_DIR, DEFAULT_DATA_DIR)
         print(domain_groups)
     elif args.command == 'train':
         domain_groups = get_domain_group(DEFAULT_DATA_DIR) #
@@ -37,7 +38,6 @@ if __name__ == '__main__':
                 model_cfg = get_group_cfg(cfg_path,'yolo', data_config['classes']) # trained with yolov3 model in default
             print('model_cfg_file:'+str(model_cfg))
             train(args, True, train_path, valid_path, class_names, model_cfg, key,model_save_path)
-
 
     elif args.command == 'all':
 
