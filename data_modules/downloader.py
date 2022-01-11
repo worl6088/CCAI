@@ -4,23 +4,41 @@ from data_modules.utils import images_options
 from data_modules.utils import bcolors as bc
 from multiprocessing.dummy import Pool as ThreadPool
 
-# make custom data config file and domain_list file
-def make_domain_list(name_path, class_list):
-    group_dic = {}
-    # print('class_list 수! '+ str(len(class_list)))
-    for domain in class_list:
+def make_domain_list(domain_file_path, domain_list):
 
-        d_list = [x.replace('_',' ') for x in domain.split(' ')] # Traffic_light -> Traffic light
-        domain_name = d_list[0]
-        classes = d_list[1:]
-        file_name = domain_name+".name"
+    # check the 'domain_file_path' whether it is exist or not
+    if not os.path.exists(domain_file_path):
+        try:
+            os.makedirs(domain_file_path)
+        except OSError:
+            print("Failed to create " + domain_file_path + " directory")
+            os.exit(-1)
 
-        with open(os.path.join(name_path,file_name), 'w') as f:
-            for line in classes:
-                f.write(line+'\n')
-        group_dic[domain_name] = [len(classes)]+classes
-    #group_dic is like  -> {'group1' : [2,'Bus','Truck']}, 2 is class number
-    return group_dic
+    # read domains and classes from 'domain_list' file
+    group_dict = {}
+    with open(domain_list, 'r') as f:
+        # TODO: change the domain_list file format to JSON
+        for list in f:
+            list = list.split(' ')
+            list = [x.strip() for x in list] # remove space or newline characters
+            list = [x.replace('_', ' ') for x in list if x != ''] # e.g. 'Traffic_light' -> 'Traffic light'
+
+            if len(list) < 2:
+                break
+
+            domain_name = list[0]
+            classes = list[1:]
+
+            group_dict[domain_name] = classes
+
+    # create domain files and write their sub classes on files
+    for (domain_name, classes) in group_dict.items():
+        with open(os.path.join(domain_file_path, domain_name + '.name'), 'w') as f:
+            for c in classes:
+                f.write(c + '\n')
+
+    # group_dict will be like  -> {'group1' : [2,'Bus','Truck']}, 2 is class number
+    return group_dict
 
 def download(args, data_type, df_val, folder, dataset_dir, class_name, class_code, domain_name, domain_dic ,threads = 20):
     
