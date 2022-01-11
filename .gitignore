@@ -1,0 +1,5 @@
+__pycache__
+.idea
+data/custom/*
+config/custom_cfg/*
+config/custom_data/*
