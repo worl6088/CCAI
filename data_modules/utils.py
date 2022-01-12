@@ -2,8 +2,8 @@ import os
 from textwrap import dedent
 
 # 데이터셋을 파싱하거나 다운로드 하는데 필요한 유틸 함수들
-def make_train_txt(data_dir,domain_name):
-    path_ = os.path.join(data_dir,'train',domain_name)
+def make_train_txt(data_dir, domain_name):
+    path_ = os.path.join(data_dir, 'train', domain_name)
     img_list = os.listdir(path_)
     img_list.remove('Label')
     file_path_list = [os.path.join(path_,x)+'\n' for x in img_list] #이제 이걸 파일 써주기만 하면됌
@@ -14,32 +14,42 @@ def make_train_txt(data_dir,domain_name):
     return os.path.join(path_,file_name)
 
 
-def make_valid_txt(data_dir,domain_name):
-    path_ = os.path.join(data_dir,'validation',domain_name)
+def make_valid_txt(data_dir, domain_name):
+    path_ = os.path.join(data_dir, 'validation', domain_name)
     img_list = os.listdir(path_)
     img_list.remove('Label')
-    file_path_list = [os.path.join(path_,x) +'\n' for x in img_list] #이제 이걸 어느 경로에 써주기만 하면됌
+    file_path_list = [os.path.join(path_, x) + '\n' for x in img_list] #이제 이걸 어느 경로에 써주기만 하면됌
     file_name = domain_name+ '_valid.txt'
-    f = open(os.path.join(path_,file_name),'w')
+    f = open(os.path.join(path_,file_name), 'w')
     f.writelines(file_path_list)
     f.close()
     return os.path.join(path_,file_name)
 
-def make_config_file(ROOT_DIR,DEFAULT_OID_DIR, domain_dict):
-    print('in make config, domain_dict:'+ str(domain_dict))
+
+def make_config_file(root_dir, default_oid_dir, domain_dict):
+    print('in make config, domain_dict:' + str(domain_dict))
+
+    config_file_path = os.path.join(root_dir, 'config', 'custom_data')
+
+    # make sure config_file_path is valid
+    if not os.path.isdir(config_file_path):
+        os.makedirs(config_file_path)
+
     for domain_name, class_list in domain_dict.items():
-        classes = class_list[0]
-        train_txt_path = make_train_txt(DEFAULT_OID_DIR, domain_name)
-        valid_txt_path = make_valid_txt(DEFAULT_OID_DIR, domain_name)
-        n_file_name = '%s.name'%domain_name
-        names = os.path.join(DEFAULT_OID_DIR, 'domain_list',n_file_name)
-        data_file_name = "%s.data"%domain_name
-        f = open(os.path.join(ROOT_DIR,'config','custom_data', data_file_name), 'w')
-        f.write('classes='+str(classes)+'\n')
-        f.write('train='+train_txt_path+'\n')
-        f.write('valid='+valid_txt_path+'\n')
-        f.write('names='+names+'\n')
-        f.close()
+        num_classes = class_list[0]
+
+        train_txt_path = make_train_txt(default_oid_dir, domain_name)
+        valid_txt_path = make_valid_txt(default_oid_dir, domain_name)
+
+        n_file_name = '%s.name' % domain_name
+        names = os.path.join(default_oid_dir, 'domain_list', n_file_name)
+        data_file_name = "%s.data" % domain_name
+
+        with open(os.path.join(config_file_path, data_file_name), 'w') as f:
+            f.write('classes=' + str(num_classes) + '\n')
+            f.write('train=' + train_txt_path + '\n')
+            f.write('valid=' + valid_txt_path + '\n')
+            f.write('names=' + names + '\n')
 
 
 def get_domain_group(DEFAULT_DATA_DIR):
