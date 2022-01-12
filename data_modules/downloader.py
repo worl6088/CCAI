@@ -4,6 +4,7 @@ from data_modules.utils import images_options
 from data_modules.utils import bcolors as bc
 from multiprocessing.dummy import Pool as ThreadPool
 
+
 def make_domain_list(domain_file_path, domain_list):
 
     # check the 'domain_file_path' whether it is exist or not
@@ -23,6 +24,7 @@ def make_domain_list(domain_file_path, domain_list):
             list = [x.strip() for x in list] # remove space or newline characters
             list = [x.replace('_', ' ') for x in list if x != ''] # e.g. 'Traffic_light' -> 'Traffic light'
 
+            # make sure the input line contains at lease one class.
             if len(list) < 2:
                 break
 
@@ -37,7 +39,12 @@ def make_domain_list(domain_file_path, domain_list):
             for c in classes:
                 f.write(c + '\n')
 
-    # group_dict will be like  -> {'group1' : [2,'Bus','Truck']}, 2 is class number
+    # append the number of classes in front of the class lists
+    for domain_name in group_dict.keys():
+        class_len = len(group_dict[domain_name])
+        group_dict[domain_name].insert(0, class_len)
+
+    # group_dict will be like  -> {'group1' : [2, 'Bus', 'Truck']}, 2 is class number
     return group_dict
 
 def download(args, data_type, df_val, folder, dataset_dir, class_name, class_code, domain_name, domain_dic ,threads = 20):
