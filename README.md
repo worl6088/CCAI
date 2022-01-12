@@ -8,7 +8,7 @@ This repository is for domain-specific object detection training framework based
 The purpose of this project is to implement a framework that automatically downloads and learns a dataset based on a user-specified class.
 
 
-###Envorionment 
+###Environment 
 Ubuntu 18.04  
 CUDA Toolkit 10.0 with the 410 version of the NVidia Driver  
 Python 3.6  
@@ -19,7 +19,7 @@ GPU : NVidia rtx 2080 ti (8GB)
     1. git clone "this repository" 
     2. cd CCAI
     3. sudo pip install -r requirements.txt
-### Download pretrained weights  (if you want train with yolov3 pre-trained weight)
+### Download pre-trained weights  (if you want train with yolov3 pre-trained weight)
     $ cd weights/
     $ bash download_weights.sh
 ### Set the domains.txt file 
@@ -27,7 +27,7 @@ Each line of domains.txt means one domain.
 First term in each line is domain name, and other are class name.  
 You can find downloadable class names in domain_list.csv.  
    
-For exmaple, if you set domains.txt as below, then you can get Highway, Park domain models trained with [Car, Bus], [Person, Tree, Dog] data  
+For example, if you set domains.txt as below, then you can get Highway, Park domain models trained with [Car, Bus], [Person, Tree, Dog] data  
 
 
 ![domain_list](./readme/domains.PNG)
@@ -86,7 +86,7 @@ You can adjust the log directory using `--logdir <path>` when running `tensorboa
 
 ③ - 'get_label' method parsing the csv file, and make label data about image. You can modify this code to get the label data for your purpose.  
 
-④ - 'Make_domain_list' mothod  make name file, which contains class name  
+④ - 'Make_domain_list' method  make name file, which contains class name  
 #####After ②③④, we can get the directory list as below  
 ![domain_list](readme/data_example.png)  
 and train.txt, valid.txt, highway.name files are made.  
@@ -110,7 +110,7 @@ Add class name file to `data/custom/domain_list/[classes.name]`. This file shoul
 ![domain_list](readme/name_file.PNG)  
 
 #### Image Folder
-Move the images of your dataset to `data/custom/train/[model domain name]`, `data/custom/validation/[model domain name]`, like directory example picture that shown above. also you should make train.txt file and valid.txt file as below 
+Move the images of your dataset to `data/custom/train/[model domain name]`, `data/custom/validation/[model domain name]`, like directory example picture that shown above. Also, you should make train.txt file and valid.txt file as below 
 ![domain_list](readme/example.PNG)  
 ![domain_list](readme/example_directory.PNG)  
 but actually, you don't have to save the file in this directory. just write the train.txt, and valid.txt file path on "config/custom_data/[domain.data]" file   
@@ -152,7 +152,7 @@ Add `--pretrained_weights weights/darknet53.conv.74` to train using a backend pr
 
 
 ## Detection test with trained model
-befor test, you should change the yolov3-custom.cfg file like below.  
+before test, you should change the yolov3-custom.cfg file like below.  
 ![domain_list](readme/change_cfg.png) 
 
 parser setting for detect test is as below: 
